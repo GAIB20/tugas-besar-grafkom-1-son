@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  padding: 0;
+  margin: 0;
+  color: white;
+}
+
+.column {
+  float: left;
+  overflow-y: auto;
+}
+
+.left {
+  width: 20%;
+  padding: 20px;
+  background-color: #4a4a4a;
+  height: 100vh;
+  text-align: left; 
+}
+
+.middle {
+  width: 54%;
+  background-color: #282828;
+  height: 100vh;
+  text-align: center; 
+}
+
+#canvas {
+  transform: translateY(3.5%);
+  background-color: white;
+  display: inline;
+  width: 93%;
+  overflow: hidden;
+  overflow-x: scroll;
+}
+
+.right {
+  width: 26%;
+  height: 100vh;
+  padding: 20px;
+  background-color: #4a4a4a;
+  text-align: left; 
+}
+
+.toolbar {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.tool {
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #5783db;
+  color: white;
+  padding: 5px;
+}
+
+h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.colorMenu {
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  padding: 0;
+  margin: 0;
+  color: black;
+}
+
+.btnClicked {
+  border: 1.5px solid white;
+}
+
+#listObject {
+  margin-top: 10%;
+  height: 90%;
+  overflow: hidden; 
+  overflow-y: scroll;
+}
+
+.toolbar {
+  margin-top: 5%;
+  height: 90%;
+  overflow: hidden; 
+  overflow-y: scroll;
+}
+
+#changeColor {
+  text-align: left;
+}
