@@ -153,7 +153,11 @@ editButton.addEventListener("click", function () {
     uncheckObject();
     hideTransformationProperties(); // Call the function to hide transformation properties when editing finishes
   }
-  resetTransformationInputs();
+  document.getElementById("x-translation").value = "0";
+  document.getElementById("y-translation").value = "0";
+  document.getElementById("dilation").value = "1";
+  document.getElementById("shear").value = "0";
+  document.getElementById("rotation").value = "0";
   drawType = "edit";
   editObject();
 });

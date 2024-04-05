@@ -78,23 +78,24 @@ function editObject() {
   const xSlider = document.getElementById("x-translation");
   tempX = 0;
 
-  //change color of selected shape to white
-  for (let p = 0; p < modelList.length; p++) {
-    let model = modelList[p];
-    for (let i = 0; i < model.colors.length; i++) {
-      model.colors[i][0] = 1;
-      model.colors[i][1] = 1;
-      model.colors[i][2] = 1;
-    }
+// Change color of selected shape to yellow
+for (let p = 0; p < modelList.length; p++) {
+  let model = modelList[p];
+  for (let i = 0; i < model.colors.length; i++) {
+    // Set RGB values to represent yellow
+    model.colors[i][0] = 1.0; // Red component
+    model.colors[i][1] = 1.0; // Green component
+    model.colors[i][2] = 0;   // Blue component
   }
+}
 
-  //change color of selected point to white
-  for (let p = 0; p < pointList.length; p++) {
-    let model = pointList[p];
-    model.colors[pointIndex[p] - 1][0] = 1;
-    model.colors[pointIndex[p] - 1][1] = 1;
-    model.colors[pointIndex[p] - 1][2] = 1;
-  }
+// Change color of selected point to yellow
+for (let p = 0; p < pointList.length; p++) {
+  let model = pointList[p];
+  model.colors[pointIndex[p] - 1][0] = 1.0; // Red component
+  model.colors[pointIndex[p] - 1][1] = 1.0; // Green component
+  model.colors[pointIndex[p] - 1][2] = 0;   // Blue component
+}
 
   //horizontal translation
   xSlider.addEventListener("input", function () {
