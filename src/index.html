@@ -3,155 +3,176 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebGL Drawing Tool</title>
-    <script src="utils.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css" />
   </head>
 
-  <div class="header">
-    <h2>WebGL Drawing Tool</h2>
-    <div class="help">
-      <button id="help" class="help-button">
-        <img width="25" height="25" src="./assets/info.png" alt="help" />
-      </button>
-    </div>
-  </div>
-  <div class="container">
-    <div class="sidebar">
-      <form onsubmit="return false;">
-        <h3>Model</h3>
-        <button id="line" name="selected-model" value="line">
-          <img width="20" height="20" src="./assets/line.png" alt="line" />
-        </button>
-        <button id="square" name="selected-model" value="square">
-          <img
-            width="20"
-            height="20"
-            src="./assets/square.png"
-            alt="square"
-          /></button
-        ><br />
-        <button id="rectangle" name="selected-model" value="rectangle">
-          <img
-            width="20"
-            height="20"
-            src="./assets/rectangle.png"
-            alt="rectangle"
-          />
-        </button>
-        <button id="polygon" name="selected-model" value="polygon">
-          <img
-            width="20"
-            height="20"
-            src="./assets/polygon.png"
-            alt="polygon"
-          /></button
-        ><br />
-      </form>
-      <br />
-      <form onsubmit="return false;">
-        <button id="mulai-gambar-polygon" hidden>Draw Polygon</button>
-        <button id="stop-gambar-polygon" hidden>Stop Drawing Polygon</button>
-        <button id="tambah-titik-polygon" hidden>Add Polygon Point</button>
-        <button id="hapus-titik-polygon" hidden>Delete Polygon Point</button>
-      </form>
-      <form onsubmit="return false;">
-        <h3>Feature</h3>
-        <button id="edit" name="selected-feature" value="edit">Edit</button>
-        <button type="reset" id="clear" name="selected-feature" value="clear">
-            Clear
+  <body>
+    <div class="header">
+      <div class="draw">
+        <div>
+          <div>
+            <button id="line" name="selected-model" value="line">
+              <img
+                width="30"
+                height="30"
+                src="./icon/line.png"
+              />
+            </button>
+
+            <button id="square" name="selected-model" value="square">
+              <img
+                width="30"
+                height="30"
+                src="./icon/square.png"
+              />
+            </button>
+          </div>
+
+          <button id="rectangle" name="selected-model" value="rectangle">
+            <img
+              width="30"
+              height="30"
+              src="./icon/rectangle.png"
+            />
           </button>
+
+          <button id="polygon" name="selected-model" value="polygon">
+            <img
+              width="30"
+              height="30"
+              src="./icon/polygon.png"
+            />
+          </button>
+        </div>
+
+        <div class="tools">
+            <div style="display: flex; flex-direction: row;">
+                <p style="margin: 0; margin-right: 10px;">Color</p>
+                <input type="color" id="color" name="color" value="#070707" />
+            </div>
+          <button type="reset" id="clear" name="selected-feature" value="clear">
+            Delete Canvas
+          </button>
+          <button id="edit" name="selected-feature" value="edit">Edit Shape</button>
+        </div>
+
+        <div class="edit-polygon">
+          <button id="mulai-gambar-polygon">Draw Polygon</button>
+          <button id="stop-gambar-polygon">Save Polygon</button>
+          <button id="tambah-titik-polygon">+ Point</button>
+          <button id="hapus-titik-polygon">- Point</button>
+        </div>
+
+        <div style="margin-left: 20px;">
+          <label for="x-translation">Translation X : </label>
           <br />
-          <label for="save">Save/load Your Drawing </label>
-        <input type="text" id="filename" placeholder="Create New Title">
-        <button id="save" name="selected-feature" value="save">
-          <img width="20" height="20" src="./assets/save.png" alt="save" />
-        </button>
-        </button>
-        <br />
-        <input type="file" id="load" name="selected-feature" value="load" />
-        <br />
-        <label for="color">Color</label>
-        <input type="color" id="color" name="color" value="#000000" />
-        <br />
-        <label for="x-translation">Translation X : </label>
-        <br />
-        <input
-          type="range"
-          min="-1"
-          max="1"
-          step="0.1"
-          value="0"
-          id="x-translation"
-        />
-        <br />
-        <label for="y-translation">Translation Y : </label>
-        <br />
-        <input
-          type="range"
-          min="-1"
-          max="1"
-          step="0.1"
-          value="0"
-          id="y-translation"
-        />
-        <br />
-        <label for="rotation">Rotation : </label>
-        <br />
-        <input
-          type="range"
-          min="0"
-          max="360"
-          step="10"
-          value="0"
-          id="rotation"
-        />
-        <br />
-        <label for="dilation">Dilation : </label>
-        <br />
-        <input
-          type="range"
-          min="0.1"
-          max="2"
-          step="0.1"
-          value="1"
-          id="dilation"
-        />
-        <br />
-        <label for="shear">Shear X : </label>
-        <br />
-        <input
-          type="range"
-          min="-1"
-          max="1"
-          step="0.1"
-          value="0"
-          id="shear"
-        />
-        <br />
-        <label for="shearY">Shear Y : </label>
-        <br />
-        <input
-          type="range"
-          min="-1"
-          max="1"
-          step="0.1"
-          value="0"
-          id="shearY"
-        />
-      </form>
-    </div>
-      <div class="content">
-        <canvas id="canvas" width="800px" height="800px"></canvas>
-        <div class="objectList">
-          <h3>Object List</h3>
-          <div id="list"></div>
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.1"
+            value="0"
+            id="x-translation"
+          />
+          <br />
+
+          <label for="y-translation">Translation Y : </label>
+          <br />
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.1"
+            value="0"
+            id="y-translation"
+          />
+        </div>
+
+        <div>
+          <label for="rotation">Rotation : </label>
+          <br />
+          <input
+            type="range"
+            min="0"
+            max="360"
+            step="10"
+            value="0"
+            id="rotation"
+          />
+          <br />
+          <label for="dilation">Dilation : </label>
+          <br />
+          <input
+            type="range"
+            min="0.1"
+            max="2"
+            step="0.1"
+            value="1"
+            id="dilation"
+          />
+        </div>
+
+        <div>
+          <label for="shear">Shear X : </label>
+          <br />
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.1"
+            value="0"
+            id="shear"
+          />
+          <br />
+          <label for="shearY">Shear Y : </label>
+          <br />
+          <input
+            type="range"
+            min="-1"
+            max="1"
+            step="0.1"
+            value="0"
+            id="shearY"
+          />
+        </div>
+
+        <div>
+          <label for="Size">Size : </label>
+          <br />
+          <input
+            type="range"
+            min="5"
+            max="360"
+            step="30"
+            value="100"
+            id="size"
+          />
+        </div>
+
+        <div class="file">
+          <div>
+            <input type="text" id="input-field" placeholder="File Name">
+            <button id="save" name="selected-feature" value="save">
+              <img width="30" height="30" src="./icon/save.png" alt="save" />
+            </button>
+          </div>
+          <div style="margin-left: 24px">
+            <input type="file" id="load" name="selected-feature" value="load" />
+          </div>
         </div>
       </div>
     </div>
+
+    <div>
+      <div class="content">
+        <canvas id="canvas" width="800px" height="800px"></canvas>
+        <div class="drawn">
+          <p>Drawing Canvas:</p>
+            <div id="list"></div>
+        </div>
+      </div>
+    </div>
+
     <script src="app.js"></script>
-  </div>
-  <script src="app.js"></script>
-  <script src="utils.js"></script>
-</body>  
+  </body>
 </html>
