@@ -1,17 +1,15 @@
-function getMousePosition(canvas, e) {
+function getCursorPosition(canvas, e) {
     const position = canvas.getBoundingClientRect();
     const x = e.clientX - position.x;
     const y = e.clientY - position.y;
     return { x, y };
   }
   
-  function getRGB(color) {
-    //convert #ffffff to rgb
+  function getColors(color) {
     const red = parseInt(color.substr(1, 2), 16);
     const green = parseInt(color.substr(3, 2), 16);
     const blue = parseInt(color.substr(5, 2), 16);
   
-    //convert rgb to 0 to 1
     const r = red / 255;
     const g = green / 255;
     const b = blue / 255;

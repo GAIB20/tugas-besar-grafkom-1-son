@@ -8,7 +8,7 @@ class Polygon extends Shape {
     super();
     // Initialize properties
     this.polyPoints = polyPoints;
-    let { r, g, b } = getRGB(rgb);
+    let { r, g, b } = getColors(rgb);
     for (let i = 0; i < polyPoints.length; i += 2) {
       this.positions.push(
         transformCoordinate(canvas, polyPoints[i], polyPoints[i + 1])

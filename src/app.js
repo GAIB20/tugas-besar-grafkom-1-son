@@ -206,13 +206,13 @@ loadInput.addEventListener("input", function (e) {
 const canvas = document.getElementById("canvas");
 canvas.addEventListener("mousemove", function (e) {
   if (isDown) {
-    let { x, y } = getMousePosition(canvas, e);
+    let { x, y } = getCursorPosition(canvas, e);
     onMove(drawType, x, y);
   }
 });
 
 canvas.addEventListener("mousedown", function (e) {
-  let { x, y } = getMousePosition(canvas, e);
+  let { x, y } = getCursorPosition(canvas, e);
   isDown = true;
   draw(drawType, x, y, size);
 });

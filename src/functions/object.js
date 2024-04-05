@@ -353,7 +353,7 @@ function editObject() {
   //change color
   const colorSlider = document.getElementById("color");
   colorSlider.addEventListener("input", function () {
-    let color = getRGB(colorSlider.value);
+    let color = getColors(colorSlider.value);
     for (let p = 0; p < modelList.length; p++) {
       let model = modelList[p];
       for (let i = 0; i < model.positions.length; i += 1) {
