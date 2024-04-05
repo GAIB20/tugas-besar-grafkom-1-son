@@ -8,7 +8,7 @@ class Line extends Shape {
   constructor(x, y) {
     super();
     // Initialize properties
-    let { r, g, b } = getColors(rgb);
+    let { r, g, b } = getRGB(rgb);
     for (let i = 0; i < 2; i++) {
       this.positions.push(transformCoordinate(canvas, x, y));
       this.colors.push([r, g, b, 1]);

@@ -14,7 +14,7 @@ class Square extends Shape {
     currentPosition.push(transformCoordinate(canvas, x + size, y));
     currentPosition.push(transformCoordinate(canvas, x, y + size));
     currentPosition.push(transformCoordinate(canvas, x + size, y + size));
-    let { r, g, b } = getColors(rgb);
+    let { r, g, b } = getRGB(rgb);
     for (let i = 0; i < 4; i++) {
       currentColor.push([r, g, b, 1]);
     }
