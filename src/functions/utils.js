@@ -58,7 +58,6 @@ function getCursorPosition(canvas, e) {
     return [x, y];
   }
   
-  /* flatten 2d array to 1d */
   function flatten(matrix) {
     let l = matrix.length;
     let n = l;
