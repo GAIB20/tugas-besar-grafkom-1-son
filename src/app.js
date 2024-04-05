@@ -210,13 +210,13 @@ loadInput.addEventListener("input", function (e) {
 const canvas = document.getElementById("canvas");
 canvas.addEventListener("mousemove", function (e) {
   if (isDown) {
-    let { x, y } = getCursorPosition(canvas, e);
+    let { x, y } = getMousePosition(canvas, e);
     onMove(drawType, x, y);
   }
 });
 
 canvas.addEventListener("mousedown", function (e) {
-  let { x, y } = getCursorPosition(canvas, e);
+  let { x, y } = getMousePosition(canvas, e);
   isDown = true;
   draw(drawType, x, y, size);
 });
@@ -455,21 +455,17 @@ function draw(model, x, y) {
 
   // Check the model type and drawing mode
   if (model === "line" && !isPolygon) {
-    models.line.push(new Line(x, y, program)); // Create a new line object
-    printModels("line", models.line); // Print line models
-  }
-  else if (model === "rectangle" && !isPolygon) {
-    models.rectangle.push(new Rectangle(x, y, program)); // Create a new rectangle object
-    printModels("rectangle", models.rectangle); // Print rectangle models
-  }
-  else if (model === "square" && !isPolygon) {
-    models.square.push(new Square(x, y, program)); // Create a new square object
-    printModels("square", models.square); // Print square models
-  }
-  else if (model === "polygon") {
-    polyPoints.push(x, y); // Add points to the polygon
-  }
-  else {
+    models.line.push(new Line(x, y, program));
+    printModels("line", models.line);
+  } else if (model === "square" && !isPolygon) {
+    models.square.push(new Square(x, y, program));
+    printModels("square", models.square);
+  } else if (model === "rectangle" && !isPolygon) {
+    models.rectangle.push(new Rectangle(x, y, program));
+    printModels("rectangle", models.rectangle);
+  } else if (model === "polygon") {
+    polyPoints.push(x, y);
+  } else {
     return;
   }
 }

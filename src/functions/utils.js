@@ -1,132 +1,138 @@
-function getCursorPosition(canvas, e) {
-  const pos = canvas.getBoundingClientRect();
-  // const e = windows.event;
-  const pos_x = e.clientX;
-  const pos_y = e.clientY;
-  const x = pos_x - pos.x;
-  const y = pos_y - pos.y;
+function getMousePosition(canvas, e) {
+  const position = canvas.getBoundingClientRect();
+  const x = e.clientX - position.x;
+  const y = e.clientY - position.y;
   return { x, y };
-  }
-  
-  function getColors(color) {
-    const i_red = parseInt(color.substr(1, 2), 16);
-    const i_green = parseInt(color.substr(3, 2), 16);
-    const i_blue = parseInt(color.substr(5, 2), 16);
-  
-    const r = i_red / 255;
-    const g = i_green / 255;
-    const b = i_blue / 255;
-  
-    return { r, g, b };
-  }
-  
-  function resizeCanvas(canvas) {
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
-    const resizer = canvas.width !== w || canvas.height !== h;
+}
 
-    if (resizer) {
-      canvas.width = w;
-      canvas.height = h;
+function getRGB(color) {
+  //convert #ffffff to rgb
+  const red = parseInt(color.substr(1, 2), 16);
+  const green = parseInt(color.substr(3, 2), 16);
+  const blue = parseInt(color.substr(5, 2), 16);
+
+  //convert rgb to 0 to 1
+  const r = red / 255;
+  const g = green / 255;
+  const b = blue / 255;
+
+  return { r, g, b };
+}
+
+function resizeCanvas(canvas) {
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  const needResize = canvas.width !== width || canvas.height !== height;
+  if (needResize) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  return needResize;
+}
+
+function transformCoordinate(canvas, x, y) {
+  const position = canvas.getBoundingClientRect();
+  const [width, height] = [position.width, position.height];
+
+  /* Converts from coordinate to zero to one */
+  /* converts zero to one to zero to two */
+  /* Converts zero to two to -1 to 1 */
+  const realWidth = (x / width) * 2 - 1;
+  const realHeight = (y / height) * -2 + 1;
+
+  return [realWidth, realHeight];
+}
+
+function centroid(matrix) {
+  let x = 0;
+  let y = 0;
+  let vertexCount = matrix.length;
+  for (i = 0; i < vertexCount; i++) {
+    x += matrix[i][0];
+    y += matrix[i][1];
+  }
+
+  x = x / vertexCount;
+  y = y / vertexCount;
+
+  return [x, y];
+}
+
+/* flatten 2d array to 1d */
+function flatten(matrix) {
+  let len = matrix.length;
+  let n = len;
+  let isArr = false;
+
+  if (Array.isArray(matrix[0])) {
+    isArr = true;
+    n *= matrix[0].length;
+  }
+
+  let result = new Float32Array(n);
+  let cur = 0;
+
+  if (isArr) {
+    for (let i = 0; i < len; i++) {
+      for (let j = 0; j < matrix[i].length; j++) {
+        result[cur++] = matrix[i][j];
+      }
     }
-  
-    return resizer;
+  } else {
+    for (let i = 0; i < len; i++) {
+      result[cur++] = matrix[i];
+    }
   }
-  
-  function transformCoordinate(canvas, x, y) {
-    const pos = canvas.getBoundingClientRect();
-    const [w, h] = [pos.width, pos.height];
-    const new_width = (x / w) * 2 - 1;
-    const new_height = (y / h) * -2 + 1;
-  
-    return [new_width, new_height];
+
+  return result;
+}
+
+function orientationOf3Points(pointA, pointB, pointC) {
+  let val = (pointB[1] - pointA[1]) * (pointC[0] - pointB[0]) - 
+            (pointB[0] - pointA[0]) * (pointC[1] - pointB[1]);
+
+  // 0 = pointA, pointB dan pointC colinear
+  // 1 = clockwise
+  // 2 = counterclockwise
+  if (val == 0) {
+    return 0;
   }
-  
-  function centroid(matrix) {
-    let x = 0;
-    let y = 0;
-    let counter = matrix.length;
+  return (val > 0)? 1:2;
+}
+
+function leftMostPointIndex(positions, vertexCount) {
+  let leftMostPtIndex = 0;
+  for (let i = 1; i < vertexCount; i ++) {
+    if (positions[i][0] < positions[leftMostPtIndex][0]){
+      leftMostPtIndex = i;
+    }
+  }
+  return leftMostPtIndex;
+}
+
+function convexHull(positions, vertexCount) {
+  if (vertexCount < 3) {
+    return;
+  }
+
+  let finalConvexHull = [];
+  let leftMostPtIndex = leftMostPointIndex(positions, vertexCount)
+
+  let firstPointIndex = leftMostPtIndex;
+  let secondPointIndex;
+  do {
+    finalConvexHull.push(positions[firstPointIndex]);
     
-    for (i = 0; i < counter; i++) {
-      x += matrix[i][0];
-      y += matrix[i][1];
-    }
-  
-    x = x / counter;
-    y = y / counter;
-  
-    return [x, y];
-  }
-  
-  function flatten(matrix) {
-    let l = matrix.length;
-    let n = l;
-    let isArr = false;
-  
-    if (Array.isArray(matrix[0])) {
-      isArr = true;
-      n *= matrix[0].length;
-    }
-  
-    let result = new Float32Array(n);
-    let c = 0;
-  
-    if (isArr) {
-      for (let i = 0; i < l; i++) {
-        for (let j = 0; j < matrix[i].length; j++) {
-          result[c++] = matrix[i][j];
-        }
-      }
-    } else {
-      for (let i = 0; i < l; i++) {
-        result[c++] = matrix[i];
-      }
-    }
-  
-    return result;
-  }  
-  
-  function index_left(pos, counter_vertex) {
-    let index_left = 0;
-    for (let i = 1; i < counter_vertex; i ++) {
-      if (pos[i][0] < pos[index_left][0]){
-        index_left = i;
-      }
-    }
-    return index_left;
-  }
-  
-  function convexHull(pos, counter_vertex) {
-    if (counter_vertex < 3) {
-      return;
-    }
-  
-    let new_convexHull = [];
-    let left_index = index_left(pos, counter_vertex)
-  
-    let firstPointIndex = left_index;
-    let secondPointIndex;
-    do {
-      new_convexHull.push(pos[firstPointIndex]);
-      
-      secondPointIndex = (firstPointIndex + 1) % counter_vertex;
-  
-      for (let i = 0; i < counter_vertex; i ++) {
-        if (orientationOf3Points(pos[firstPointIndex], pos[i], pos[secondPointIndex]) == 2) {
-          secondPointIndex = i;
-        }
-      }
-      firstPointIndex = secondPointIndex
-    } while (firstPointIndex != left_index)
-  
-    return new_convexHull;
-  }
+    secondPointIndex = (firstPointIndex + 1) % vertexCount;
 
-
-  function orientationPoints3D(a, b, c) {
-    let v = (b[1] - a[1]) * (c[0] - b[0]) - (b[0] - a[0]) * (c[1] - b[1]);
-    if (v == 0) {
-      return 0;
+    for (let i = 0; i < vertexCount; i ++) {
+      if (orientationOf3Points(positions[firstPointIndex], positions[i], positions[secondPointIndex]) == 2) {
+        secondPointIndex = i;
+      }
     }
-    return (v > 0)? 1:2;
-  }
+    firstPointIndex = secondPointIndex
+  } while (firstPointIndex != leftMostPtIndex)
+
+  return finalConvexHull;
+}

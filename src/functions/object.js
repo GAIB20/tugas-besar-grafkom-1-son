@@ -354,7 +354,7 @@ for (let p = 0; p < pointList.length; p++) {
   //change color
   const colorSlider = document.getElementById("color");
   colorSlider.addEventListener("input", function () {
-    let color = getColors(colorSlider.value);
+    let color = getRGB(colorSlider.value);
     for (let p = 0; p < modelList.length; p++) {
       let model = modelList[p];
       for (let i = 0; i < model.positions.length; i += 1) {
