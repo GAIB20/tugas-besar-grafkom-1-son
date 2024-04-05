@@ -14,7 +14,7 @@
 .left {
   width: 20%;
   padding: 20px;
-  background-color: #4a4a4a;
+  background-color: #35374B;
   height: 100vh;
   text-align: left; 
 }
@@ -39,7 +39,7 @@
   width: 26%;
   height: 100vh;
   padding: 20px;
-  background-color: #4a4a4a;
+  background-color: #35374B;
   text-align: left; 
 }
 
@@ -50,12 +50,22 @@
 
 .tool {
   margin-bottom: 20px;
+  display: inline-block;
+
 }
 
 button {
-  background-color: #5783db;
+  background-color: #0A1D56;
   color: white;
-  padding: 5px;
+  border-radius: 15px;
+  padding: 10px 25px;
+}
+
+.button-group{
+  display: flex;
+  flex-flow: row wrap;
+  row-gap: 10px;
+  gap: 10px;
 }
 
 h2 {
@@ -97,3 +107,32 @@ h3 {
 #changeColor {
   text-align: left;
 }
+
+
+.button-saveload #filename{
+  padding: 0 30px;
+  border-radius: 10px;
+  outline: none;
+  line-height: 30px;
+  background-color: transparent;
+  border: 2px solid #092635 ;
+  color: white;
+}
+
+.button-saveload #load{
+  padding: 0 30px;
+  border-radius: 10px;
+  outline: none;
+  line-height: 30px;
+  background-color: transparent;
+  border: 2px solid #092635 ;
+  color: white;
+  margin-top: 10px;
+}
+
+::placeholder {
+  color: white;
+}
+
+
+
