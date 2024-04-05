@@ -1,5 +1,5 @@
 # tugas-besar-grafkom-1-son
-Kelompok:
+Kelompok SON :
 | Nama | Nim |
 | :----------------------------: | :------: |
 | Akhmad Setiawan | 13521164  |
@@ -7,8 +7,8 @@ Kelompok:
 | Satria Octavianus Nababan | 13521168  |
 
 ## Cara Menjalankan Program
-Clone repository yang ada
-Jalan index.html pada server website
+- Clone repository yang ada
+- Jalan index.html pada server website
 
 ## Tutorial menggambar model
 - Garis , klik tombol garis dan gambarkan garis dengan menggeser cursor untuk membentuk garis
